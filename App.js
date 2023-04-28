@@ -118,8 +118,8 @@ function Navigation() {
   //const authCtx = useContext(AuthContext);
   return (
     <NavigationContainer>
-      {!auth.isAuthenticated && <AuthStack />}
-      {auth.isAuthenticated && <AuthenticatedStack />}
+      {!auth && <AuthStack />}
+      {auth && <AuthenticatedTab />}
     </NavigationContainer>
   );
 }
