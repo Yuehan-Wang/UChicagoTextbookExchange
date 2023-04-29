@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { auth } from "../firebase/config";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import UniteLogo from '../images/Unite_Logo.png';
 
@@ -18,8 +19,19 @@ const LoginScreen = ({onLogin}) => {
         email,
         password
     );
+
+    const storeData = async (key, value) => {
+      try {
+        await AsyncStorage.setItem(key, value);
+        console.log(`Data stored with key ${key}`);
+        console.log(auth.currentUser.email);
+      } catch (e) {
+        console.log(`Error storing data with key ${key}: ${e}`);
+      }
+    };
+    
     const token = await userCredential.user.getIdToken();
-    console.log(token);
+    storeData('userToken', token);
     onLogin();
   }
 

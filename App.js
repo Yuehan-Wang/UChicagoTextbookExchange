@@ -3,13 +3,14 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { StatusBar } from "react-native";
 import React, { useState } from "react";
-import Dashboard from "./src/test/Dashboard";
 import LoginScreen from "./src/test/LoginScreen";
 
 import DashboardScreen from "./src/screens/DashboardScreen/DashboardScreen"
 import MarketScreen from "./src/screens/MarketScreen/MarketScreen"
 import ChatScreen from "./src/screens/ChatScreen/ChatScreen";
 import ProfileScreen from "./src/screens/ProfileScreen/ProfileScreen"
+
+import { auth } from "./src/firebase/config";
 
 import {
   Ionicons,
@@ -93,7 +94,7 @@ function AuthenticatedTab() {
 }
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLogin = () => {
     setIsLoggedIn(true);

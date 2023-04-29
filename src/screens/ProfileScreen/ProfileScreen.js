@@ -1,11 +1,13 @@
 import { View, Text, StyleSheet } from "react-native"
+import ProfilePicture from "./components/ProfilePicture"
 
 export default function ProfileScreen(){
+
     return (
         <View style={styles.rootContainer}>
-          <Text>
-            This is the <Text style={styles.highlight}>"Profile"</Text> screen!
-          </Text>
+          <View>
+            <ProfilePicture/>
+            </View>
         </View>
       );
 }
