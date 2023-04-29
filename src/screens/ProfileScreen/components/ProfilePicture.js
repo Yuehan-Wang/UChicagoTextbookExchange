@@ -11,22 +11,25 @@ const ProfilePicture = () => {
 
   const handleupload = async (event) => {
     event.preventDefault();
-
-    const blob = await new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = function () {
-        resolve(xhr.response);
-      };
-      xhr.onerror = function (e) {
-        console.log(e);
-        reject(new TypeError("Network request failed"));
-      };
-      xhr.responseType = "blob";
-      xhr.open("GET", imageUri, true);
-      xhr.send(null);
-    });
-    const imageRef = ref(storage, `images/123`);
-    await uploadBytes(imageRef, blob);
+    try {
+      const blob = await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+          resolve(xhr.response);
+        };
+        xhr.onerror = function (e) {
+          console.log(e);
+          reject(new TypeError("Network request failed"));
+        };
+        xhr.responseType = "blob";
+        xhr.open("GET", imageUri, true);
+        xhr.send(null);
+      });
+      const imageRef = ref(storage, `images/123`);
+      await uploadBytes(imageRef, blob);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const getimage = async () => {
@@ -81,7 +84,6 @@ const ProfilePicture = () => {
         onPress={handleupload}>
         <Text>Upload</Text>
       </TouchableOpacity>
-      
     </View>
   );
 };
