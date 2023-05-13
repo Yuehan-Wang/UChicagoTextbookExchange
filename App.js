@@ -10,6 +10,11 @@ import MarketScreen from "./src/screens/MarketScreen/MarketScreen"
 import ChatScreen from "./src/screens/ChatScreen/ChatScreen";
 import ProfileScreen from "./src/screens/ProfileScreen/ProfileScreen"
 
+
+//subscreens
+import CollectionScreen from "./src/screens/DashboardScreen/CollectionScreen/CollectionScreen";
+import TransactionScreen from "./src/screens/DashboardScreen/TransactionScreen/TransactionScreen";
+
 import { auth } from "./src/firebase/config";
 
 import {
@@ -26,7 +31,6 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function AuthenticatedTab() {
-
   return (
     <Tab.Navigator
       screenOptions={{
@@ -93,6 +97,28 @@ function AuthenticatedTab() {
   );
 }
 
+function AuthenticatedStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="AuthenticatedTab"
+        component={AuthenticatedTab}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="CollectionScreen"
+        component={CollectionScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="TransactionScreen"
+        component={TransactionScreen}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -102,8 +128,9 @@ function App() {
 
   return isLoggedIn ? (
     <NavigationContainer>
-        <AuthenticatedTab />
-  </NavigationContainer>
+        <StatusBar barStyle='dark-content' />
+        <AuthenticatedStack />
+    </NavigationContainer>
   ) : (
     <LoginScreen onLogin={handleLogin} />
   );
